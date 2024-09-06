@@ -39,29 +39,59 @@ const ParticleBackground = () => {
       const particleCount = 3000;
 
       const posArray = new Float32Array(particleCount * 3);
+      const scaleArray = new Float32Array(particleCount);
 
       for (let i = 0; i < particleCount * 3; i += 3) {
         posArray[i] = (Math.random() - 0.5) * 5;     // x
         posArray[i + 1] = (Math.random() - 0.5) * 5; // y
         posArray[i + 2] = (Math.random() - 0.5) * 5; // z
+        scaleArray[i / 3] = Math.random();           // Individual scale for each particle
       }
 
       particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      particles.setAttribute('scale', new THREE.BufferAttribute(scaleArray, 1));
 
-      const material = new THREE.PointsMaterial({
-        size: 0.002,
-        color: 0xffffff,
-        sizeAttenuation: true,
+      const material = new THREE.ShaderMaterial({
+        uniforms: {
+          time: { value: 0 },
+        },
+        vertexShader: `
+          attribute float scale;
+          uniform float time;
+          varying float vScale;
+          void main() {
+            vScale = scale;
+            float size = scale * (0.02 + 0.02 * sin(time * 1.3 + scale * 10.0));
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_PointSize = size * (300.0 / -mvPosition.z);
+            gl_Position = projectionMatrix * mvPosition;
+          }
+        `,
+        fragmentShader: `
+          varying float vScale;
+          void main() {
+            float distanceFromCenter = length(gl_PointCoord - vec2(0.5));
+            if (distanceFromCenter > 0.5) discard;
+            float alpha = smoothstep(0.5, 0.0, distanceFromCenter);
+            gl_FragColor = vec4(1.0, 1.0, 1.0, alpha);
+          }
+        `,
+        transparent: true,
+        depthWrite: false,
       });
 
       const particlesMesh = new THREE.Points(particles, material);
       scene.add(particlesMesh);
 
-      camera.position.z = 2;
+      camera.position.z = 1;
 
       // Animation
+      const clock = new THREE.Clock();
       const animate = () => {
         if (!sceneRef.current) return;
+
+        const elapsedTime = clock.getElapsedTime();
+        material.uniforms.time.value = elapsedTime;
 
         particlesMesh.rotation.x += 0.00012;
         particlesMesh.rotation.y += 0.00012;
