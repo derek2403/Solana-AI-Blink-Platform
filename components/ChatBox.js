@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import BlinkPreview from './DynamicBlink'; // Ensure the import path is correct
+import BlinkPreview from './DynamicBlink';
+import { Button, Textarea } from "@nextui-org/react";
+import { CopyIcon } from '../public/CopyIcon.js';
+import { TickIcon } from '../public/TickIcon.js';
 
 export default function ChatBox({ walletAddress }) {
   const [userInput, setUserInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState('');
   const [actionApiUrl, setActionApiUrl] = useState('');
+  const [justCopied, setJustCopied] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,61 +49,48 @@ export default function ChatBox({ walletAddress }) {
     }
   };
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(actionApiUrl).then(() => {
+      setJustCopied(true);
+      setTimeout(() => setJustCopied(false), 2000);
+    });
+  };
+
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: '2rem',
-      color: '#e2e8f0',
-      padding: '2rem',
-    }}>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', maxWidth: '900px' }}>
-        <textarea
+    <div className="flex flex-col items-center gap-8 text-gray-200 p-8 max-w-4xl mx-auto">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
+        <Textarea
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
           placeholder="What Blink should I generate?"
-          rows="4"
-          style={{
-            padding: '1rem',
-            marginBottom: '1rem',
-            width: '1000px',
-            borderRadius: '0.75rem',
-            borderWidth: '2px',
-            borderColor: '#4a5568',
-            backgroundColor: '#2d3748',
-            color: '#e2e8f0',
-            outline: 'none',
-            boxShadow: '0 0 0 2px rgba(66, 153, 225, 0.5)',
-            transition: 'all 0.3s ease-in-out',
-          }}
+          rows={4}
+          className="w-full mb-4 bg-gray-800 bg-opacity-75 dark:bg-gray-800 dark:bg-opacity-75 rounded-lg shadow border-none"
         />
-        <button
+
+        <Button
           type="submit"
           disabled={loading || !walletAddress}
-          style={{
-            padding: '0.75rem 1.5rem',
-            fontSize: '1rem',
-            fontWeight: 'bold',
-            textTransform: 'uppercase',
-            color: '#1a202c',
-            background: 'linear-gradient(to right, #4299e1, #68d391)',
-            borderRadius: '0.5rem',
-            border: 'none',
-            boxShadow: '0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)',
-            cursor: loading || !walletAddress ? 'not-allowed' : 'pointer',
-            opacity: loading || !walletAddress ? '0.5' : '1',
-            transition: 'all 0.2s ease-in-out',
-          }}
+          className="bg-[#181c2c] bg-opacity-75 rounded-lg shadow text-white"
+          variant="ghost"
         >
           {loading ? 'Processing...' : 'Submit'}
-        </button>
+        </Button>
       </form>
       {actionApiUrl && (
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <p style={{ fontSize: '1rem', color: '#68d391', marginBottom: '1rem' }}>
-            Action Link: <a href={actionApiUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#4299e1', textDecoration: 'underline', cursor: 'pointer' }}>{actionApiUrl}</a>
-          </p>
+        <div className="bg-gray-800 bg-opacity-75 p-4 rounded-lg shadow text-center w-full">
+          <h2 className="text-lg font-semibold mb-2">Action Link</h2>
+          <div className="flex items-center justify-center">
+            <p className="text-sm text-gray-300 mr-2 break-all">
+              {actionApiUrl}
+            </p>
+            <button
+              onClick={copyToClipboard}
+              className="p-1 hover:bg-gray-700 rounded-full transition-colors flex-shrink-0 inline-flex items-center"
+              title={justCopied ? "Copied!" : "Copy address"}
+            >
+              {justCopied ? <TickIcon className="w-5 h-5" /> : <CopyIcon className="w-5 h-5" />}
+            </button>
+          </div>
           <BlinkPreview actionApiUrl={actionApiUrl} />
         </div>
       )}

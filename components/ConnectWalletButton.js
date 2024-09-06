@@ -33,9 +33,7 @@ export default function ConnectWalletButton({ setWalletAddress }) {
             flexDirection: 'column',
             alignItems: 'center',
         }}>
-            <WalletMultiButton style={{
-                backgroundColor: '#4299e1',
-                color: '#1a202c',
+            <WalletMultiButton style={{       
                 padding: '0.75rem 1.5rem',
                 borderRadius: '0.5rem',
                 fontWeight: 'bold',

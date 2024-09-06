@@ -1,11 +1,14 @@
-import '../styles/globals.css'
-import '@solana/wallet-adapter-react-ui/styles.css'
-import '@dialectlabs/blinks/index.css'
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
-import { clusterApiUrl } from '@solana/web3.js'
-import { useMemo, useEffect, useState } from 'react'
+import '../styles/globals.css';
+import '@solana/wallet-adapter-react-ui/styles.css';
+import '@dialectlabs/blinks/index.css';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { clusterApiUrl } from '@solana/web3.js';
+import { useMemo, useEffect, useState } from 'react';
+
+// Import NextUIProvider
+import { NextUIProvider } from '@nextui-org/react';
 
 export default function App({ Component, pageProps }) {
   const [isClient, setIsClient] = useState(false);
@@ -24,12 +27,14 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          <Component {...pageProps} />
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
+    <NextUIProvider>
+      <ConnectionProvider endpoint={endpoint}>
+        <WalletProvider wallets={wallets} autoConnect>
+          <WalletModalProvider>
+            <Component {...pageProps} />
+          </WalletModalProvider>
+        </WalletProvider>
+      </ConnectionProvider>
+    </NextUIProvider>
   );
 }

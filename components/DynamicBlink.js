@@ -25,9 +25,9 @@ export default function BlinkPreview({ actionApiUrl }) {
     }, [action, error, actionApiUrl]);
 
     return (
-        <div style={{ 
-            maxWidth: '32rem', 
-            margin: '1.5rem auto', 
+        <div style={{
+            maxWidth: '32rem',
+            margin: '1.5rem auto',
             padding: '1.5rem',
             backgroundColor: '#2d3748',
             borderRadius: '0.5rem',
@@ -35,11 +35,11 @@ export default function BlinkPreview({ actionApiUrl }) {
         }}>
             <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', color: '#e2e8f0' }}>Blink Preview</h2>
             {error && (
-                <div style={{ 
-                    backgroundColor: '#742a2a', 
-                    borderLeft: '4px solid #f56565', 
-                    color: '#fed7d7', 
-                    padding: '1rem', 
+                <div style={{
+                    backgroundColor: '#742a2a',
+                    borderLeft: '4px solid #f56565',
+                    color: '#fed7d7',
+                    padding: '1rem',
                     marginBottom: '1rem',
                     borderRadius: '0.25rem',
                 }} role="alert">
@@ -52,17 +52,17 @@ export default function BlinkPreview({ actionApiUrl }) {
                     <Blink
                         action={action}
                         websiteText={new URL(actionApiUrl).hostname}
-                        stylePreset="dark"
+                        stylePreset="x-dark"
                     />
                 </div>
             ) : (
-                <div style={{ 
-                    width: '100%', 
-                    height: '16rem', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    backgroundColor: '#4a5568', 
+                <div style={{
+                    width: '100%',
+                    height: '16rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#4a5568',
                     borderRadius: '0.5rem',
                     color: '#a0aec0',
                 }}>

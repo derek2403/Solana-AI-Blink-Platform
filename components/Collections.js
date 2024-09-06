@@ -3,6 +3,7 @@ import '@dialectlabs/blinks/index.css';
 import { useActionSolanaWalletAdapter } from "@dialectlabs/blinks/hooks/solana";
 import { Blink, useAction } from "@dialectlabs/blinks";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Button } from "@nextui-org/react";
 
 const extractHostname = (url) => {
   try {
@@ -39,7 +40,7 @@ const AnalyticsPopup = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
       <div className="bg-gray-800 p-6 rounded-lg w-11/12 max-w-4xl max-h-[90vh] overflow-y-auto relative">
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-2 right-2 text-gray-400 hover:text-white"
         >
@@ -95,7 +96,7 @@ const BlinkPane = ({ url }) => {
   const [showAnalytics, setShowAnalytics] = useState(false);
 
   if (error) return <p className="text-red-500">Error: {error.message}</p>;
-  if (!action) return <p className="text-gray-400">Loading...</p>;
+  if (!action) return <p className="text-gray-400"></p>;
 
   const hostname = extractHostname(url);
 
@@ -108,46 +109,39 @@ const BlinkPane = ({ url }) => {
           stylePreset="x-dark"
         />
       </div>
-      <div className="bg-gray-700 p-2 text-center">
-        <button 
-          className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition duration-300 w-full"
+      <div className=" p-2 text-center">
+        <Button
+          color="default"
           onClick={() => setShowAnalytics(true)}
+          className="w-full"
         >
           Details
-        </button>
+        </Button>
       </div>
       {showAnalytics && <AnalyticsPopup onClose={() => setShowAnalytics(false)} />}
     </div>
   );
 };
 
-export const MultiBlink = ({ actionUrls }) => {
+export const MultiBlink = ({ actionUrls = [] }) => {
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
+    <div className="text-white min-h-screen">
       <h1 className="text-4xl font-bold mb-6 text-center pt-8">
         <span className="text-5xl font-bold bg-gradient-to-r from-purple-500 to-green-400 bg-clip-text text-transparent p-1 rounded">
           Blinks
-        </span> gallery
+        </span> Gallery
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto px-4">
-        {actionUrls.slice(0, 8).map((url, index) => (
-          <BlinkPane key={index} url={url} />
-        ))}
+        {actionUrls.length > 0 ? (
+          actionUrls.slice(0, 8).map((url, index) => (
+            <BlinkPane key={index} url={url} />
+          ))
+        ) : (
+          <p className="col-span-full text-center text-gray-400">No action URLs provided.</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default function Home() {
-  const actionUrls = [
-    'https://dial.to/?action=solana-action:https://blink.sunrisestake.com/api/actions/stake',
-    'https://dial.to/?action=solana-action:https://www.dewicats.xyz/api/auction-blink',
-    'https://dial.to/?action=solana-action%3Ahttps%3A%2F%2Ftiplink.io%2Fapi%2Fblinks%2Fdonate%3Fdest%3D8QNrVY8L6bRRNCGMtBeACSDFh9bBd1R6mMp2tkdBCqYK'
-  ];
-
-  return (
-    <div className="bg-gray-900">
-      <MultiBlink actionUrls={actionUrls} />
-    </div>
-  );
-}
+export default MultiBlink;
