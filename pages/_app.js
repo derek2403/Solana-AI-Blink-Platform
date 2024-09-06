@@ -1,7 +1,6 @@
 import '../styles/globals.css';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import '@dialectlabs/blinks/index.css';
-import { useRouter } from 'next/router';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
