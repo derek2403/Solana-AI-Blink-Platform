@@ -1,63 +1,71 @@
 import React, { useState } from 'react';
+import { MultiBlink } from '../components/Collections';  // Adjust the import path as necessary
+import { AnalyticsPopup } from '../components/Collections';  // Adjust the import path as necessary
+import ChatBox from '../components/ChatBox';  // Adjust the import path as necessary
+import ConnectWalletButton from '../components/ConnectWalletButton';  // Adjust the import path as necessary
 
-const SidebarLayout = ({ content: Content }) => {
-  const [selectedComponent, setSelectedComponent] = useState(null);
+const SidebarLayout = () => {
+  const [selectedComponent, setSelectedComponent] = useState('create');
+  const [walletAddress, setWalletAddress] = useState('');
 
-  const menuItems = [
-    { label: 'Home', component: <Home /> },
-    { label: 'About', component: <About /> },
+  const actionUrls = [
+    'https://dial.to/?action=solana-action:https://blink.sunrisestake.com/api/actions/stake',
+    'https://dial.to/?action=solana-action:https://www.dewicats.xyz/api/auction-blink',
+    'https://dial.to/?action=solana-action%3Ahttps%3A%2F%2Ftiplink.io%2Fapi%2Fblinks%2Fdonate%3Fdest%3D8QNrVY8L6bRRNCGMtBeACSDFh9bBd1R6mMp2tkdBCqYK'
   ];
 
+  const menuItems = [
+    { label: 'Create Blinks', id: 'create' },
+    { label: 'Collections', id: 'collections' },
+  ];
+
+  const renderContent = () => {
+    switch (selectedComponent) {
+      case 'create':
+        return (
+          <div className="text-white">
+            <h2 className="text-2xl font-bold mb-4">Create Your Blink</h2>
+            <ChatBox walletAddress={walletAddress} />
+          </div>
+        );
+      case 'collections':
+        return <MultiBlink actionUrls={actionUrls} />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div style={{ display: 'flex', margin: 0, padding: 0, fontFamily: 'Arial, sans-serif' }}>
-      <aside style={{ width: '250px', backgroundColor: '#4338ca', color: 'white', height: '100vh', padding: '20px', boxSizing: 'border-box' }}>
-        <h2 style={{ marginTop: 0, marginBottom: '30px' }}>Portfolio</h2>
-        <nav>
-          <ul style={{ listStyleType: 'none', padding: 0 }}>
-            {menuItems.map((item, index) => (
-              <li key={index} style={{ marginBottom: '15px' }}>
-                <button
-                  onClick={() => setSelectedComponent(item.component)}
-                  style={{ color: 'white', background: 'none', border: 'none', textDecoration: 'none', cursor: 'pointer' }}
-                >
-                  {item.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <div style={{ marginTop: '50px' }}>
-          <h3 style={{ marginBottom: '10px' }}>Subscribe for newsletter</h3>
-          <input type="email" placeholder="Enter Email Address" style={{ width: '100%', padding: '10px', boxSizing: 'border-box', marginBottom: '10px' }} />
-          <button style={{ width: '100%', padding: '10px', backgroundColor: '#3730a3', color: 'white', border: 'none', cursor: 'pointer' }}>Subscribe</button>
-        </div>
-        <p style={{ position: 'absolute', bottom: '20px', fontSize: '12px' }}>Copyright ©2020 All rights reserved | This template is made with by Portfolio Agency</p>
-      </aside>
-      <main style={{ flexGrow: 1, padding: '20px', boxSizing: 'border-box' }}>
-        <h1 style={{ color: '#333' }}>Sidebar #05</h1>
-        {selectedComponent || (
-          <p style={{ color: '#666', lineHeight: '1.6' }}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        )}
-      </main>
+    <div className="flex flex-col bg-gray-900 text-white min-h-screen">
+      <header className="bg-gray-800 p-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Blinks Portfolio</h1>
+        <ConnectWalletButton setWalletAddress={setWalletAddress} />
+      </header>
+      <div className="flex flex-1">
+        <aside className="w-64 bg-gray-800 p-6">
+          <nav>
+            <ul>
+              {menuItems.map((item) => (
+                <li key={item.id} className="mb-4">
+                  <button
+                    onClick={() => setSelectedComponent(item.id)}
+                    className={`text-left w-full py-2 px-4 rounded ${
+                      selectedComponent === item.id ? 'bg-purple-600' : 'hover:bg-gray-700'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
+        <main className="flex-grow p-6 overflow-auto">
+          {renderContent()}
+        </main>
+      </div>
     </div>
   );
 };
-
-// Example content components
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-    <p>Welcome to the Home page!</p>
-  </div>
-);
-
-const About = () => (
-  <div>
-    <h2>About</h2>
-    <p>This is the About page!</p>
-  </div>
-);
 
 export default SidebarLayout;

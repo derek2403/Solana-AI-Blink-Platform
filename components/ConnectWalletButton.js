@@ -29,7 +29,6 @@ export default function ConnectWalletButton({ setWalletAddress }) {
 
     return (
         <div style={{
-            marginBottom: '2rem',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -45,11 +44,7 @@ export default function ConnectWalletButton({ setWalletAddress }) {
             }} />
             {connected && (
                 <p style={{
-                    marginTop: '1rem',
-                    fontSize: '0.875rem',
-                    color: '#a0aec0',
                 }}>
-                    Connected: {walletAddress.slice(0, 4)}...{walletAddress.slice(-4)}
                 </p>
             )}
         </div>

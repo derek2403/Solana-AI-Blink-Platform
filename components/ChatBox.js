@@ -49,11 +49,8 @@ export default function ChatBox({ walletAddress }) {
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
       alignItems: 'center',
-      minHeight: '100vh',
       gap: '2rem',
-      backgroundColor: '#1a202c',
       color: '#e2e8f0',
       padding: '2rem',
     }}>
