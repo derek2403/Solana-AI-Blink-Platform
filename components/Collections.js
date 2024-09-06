@@ -109,13 +109,17 @@ const BlinkPane = ({ url }) => {
           stylePreset="x-dark"
         />
       </div>
-      <div className=" p-2 text-center">
+      <div className="p-2 text-center" style={{ color: '#512DA8' }}>
         <Button
-          color="default"
           onClick={() => setShowAnalytics(true)}
           className="w-full"
+          style={{
+            backgroundColor: '#512DA8',
+            color: '#fff', // Assuming you want white text on the button
+          }}
+          auto
         >
-          Details
+          <strong>Details</strong>
         </Button>
       </div>
       {showAnalytics && <AnalyticsPopup onClose={() => setShowAnalytics(false)} />}

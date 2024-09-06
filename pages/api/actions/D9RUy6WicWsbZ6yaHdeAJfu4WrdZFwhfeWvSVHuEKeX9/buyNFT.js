@@ -19,13 +19,13 @@ export default function handler(req, res) {
   if (req.method === 'GET') {
     const payload = {
   "icon": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgz9hadyYQ1Y4Q_EKLx0nmtFXzcPWEAPpdBKGvHhsZAzh9d6FxSGOkuiBOu5zjYSoi3QX0a4HiHyvj0AHt5SCBK-1Er2Rh5Hx-vRU_o1QS75VFZwrn6LxggT2M3Cy0RrDFgBwUKK0ghfeCJ-AOydta-hoAOL15iVKlJ70GurI1AO7dBEuOP7tfSVJo2WlZ8/s320/blink.png",
-  "label": "NFT for Dogs",
-  "title": "Support Dogs Everywhere",
-  "description": "Join us in celebrating and protecting our beloved canine companions. By signing, you’re showing your support for dogs and helping to ensure their welfare.",
+  "label": "End Dog Abuse",
+  "title": "Petition to End Dog Abuse",
+  "description": "Join us in our petition to put an end to dog abuse. Stand against this cruelty and help us push for stronger laws and better protection for our canine friends.",
   "links": {
     "actions": [
       {
-        "label": "Sign to show your support for this petition",
+        "label": "Sign to Show Your Support",
         "href": "/api/signTransaction"
       }
     ]

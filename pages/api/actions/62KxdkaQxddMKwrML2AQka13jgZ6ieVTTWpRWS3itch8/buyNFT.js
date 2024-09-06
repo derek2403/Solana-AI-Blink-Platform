@@ -18,14 +18,14 @@ export default function handler(req, res) {
 
   if (req.method === 'GET') {
     const payload = {
-  "icon": "https://drive.google.com/file/d/1KUHmUHgZ5R6kf2vmaf_jxrxaVqtsa5dm/view?usp=sharing",
-  "label": "NFT for Awareness",
-  "title": "Stand Against Violence",
-  "description": "I am seeking support to raise awareness against violence and harmful intentions. Our goal is to promote peace and understanding through this campaign.",
+  "icon": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgz9hadyYQ1Y4Q_EKLx0nmtFXzcPWEAPpdBKGvHhsZAzh9d6FxSGOkuiBOu5zjYSoi3QX0a4HiHyvj0AHt5SCBK-1Er2Rh5Hx-vRU_o1QS75VFZwrn6LxggT2M3Cy0RrDFgBwUKK0ghfeCJ-AOydta-hoAOL15iVKlJ70GurI1AO7dBEuOP7tfSVJo2WlZ8/s320/blink.png",
+  "label": "end dog abuse",
+  "title": "End Dog Abuse",
+  "description": "Join the fight against dog abuse and help spread awareness. By signing this NFT, you show your support for the protection and humane treatment of dogs.",
   "links": {
     "actions": [
       {
-        "label": "Sign to Agree to This Petition",
+        "label": "Sign to Show Your Support",
         "href": "/api/signTransaction"
       }
     ]

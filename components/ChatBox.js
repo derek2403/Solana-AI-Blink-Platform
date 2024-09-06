@@ -70,8 +70,8 @@ export default function ChatBox({ walletAddress }) {
         <Button
           type="submit"
           disabled={loading || !walletAddress}
-          className="bg-[#181c2c] bg-opacity-75 rounded-lg shadow text-white"
-          variant="ghost"
+          className="bg-[#512DA8] bg-opacity-75 rounded-lg shadow text-white font-bold"
+          style={{ backgroundColor: '#512DA8', color: '#fff', fontWeight: 'bold',width: '20%'}}
         >
           {loading ? 'Processing...' : 'Submit'}
         </Button>

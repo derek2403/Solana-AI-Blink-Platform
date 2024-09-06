@@ -15,7 +15,7 @@ const SidebarLayout = () => {
     ];
 
     const actionUrls = [
-        'http://localhost:3000/api/actions/EmNte14QTMuQWGrVfqx4Gb3hri632qELgrvLuVn3w12r/buyNFT',
+        'http://localhost:3000/api/actions/D9RUy6WicWsbZ6yaHdeAJfu4WrdZFwhfeWvSVHuEKeX9/buyNFT',
         'https://dial.to/?action=solana-action:https://blink.sunrisestake.com/api/actions/stake',
         'https://dial.to/?action=solana-action%3Ahttps%3A%2F%2Ftiplink.io%2Fapi%2Fblinks%2Fdonate%3Fdest%3D8QNrVY8L6bRRNCGMtBeACSDFh9bBd1R6mMp2tkdBCqYK'
     ];
@@ -45,22 +45,26 @@ const SidebarLayout = () => {
         <div className="relative min-h-screen w-full">
             <StarfieldBackground />
             <div className="absolute inset-0 z-10 flex flex-col bg-opacity-0 text-white">
-                <header className="bg-gray-800 bg-opacity-75 p-4 flex justify-between items-center">
-                    <h1 className="text-2xl font-bold">Blinks Portfolio</h1>
-                    <ConnectWalletButton setWalletAddress={setWalletAddress} />
+                <header className="p-4 flex justify-between items-center">
+                <img
+                src="/onlyBlinks.png"  // Replace with the actual path to your image
+                alt="Blinks Portfolio"
+                style={{ width: '160px', height: 'auto', marginLeft: '3%'}}  // Adjust size as needed
+                />
+                <ConnectWalletButton setWalletAddress={setWalletAddress} />
                 </header>
 
                 <div className="flex flex-1 overflow-hidden">
-                    <aside className="w-64 bg-gray-800 bg-opacity-75 p-6 overflow-y-auto">
+                    <aside className="w-64 p-6 overflow-y-auto">
                         <nav>
                             <ul>
                                 {menuItems.map((item) => (
                                     <li key={item.id} className="mb-4">
                                         <Button
                                             onClick={() => setSelectedComponent(item.id)}
-                                            className={`text-left w-full py-2 px-4 rounded ${selectedComponent === item.id
-                                                ? 'bg-purple-600 bg-opacity-75'
-                                                : 'hover:bg-gray-700 hover:bg-opacity-75'
+                                            className={`text-left w-full py-2 px-4 rounded text-white font-bold ${selectedComponent === item.id
+                                                ? 'bg-[#512DA8]'
+                                                : 'hover:bg-gray-700 hover:bg-opacity-75 text-black'
                                                 }`}
                                         >
                                             {item.label}

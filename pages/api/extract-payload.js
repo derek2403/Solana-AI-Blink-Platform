@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       messages: [
         {
           role: "system",
-          content: "Extract the following from the user's request to create an NFT: label, title, description, and button label. If incomplete info is given, generate relevant information to the payload. No need to have any text decorations in your response. The button label is always Sign to show your support for this petition." 
+          content: "Extract the following from the user's request to create an NFT: label, title, description, and button label. If incomplete info is given, generate relevant information to the payload. No need to have any text decorations in your response. The button label is always Sign to Show Your Support." 
         },
         {
           role: "user",
