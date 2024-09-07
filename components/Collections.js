@@ -48,9 +48,18 @@ const petitionBarChartData = [
   { category: 'Other', signatures: 12 },
 ];
 
-const DonationAnalyticsPopup = ({ onClose }) => {
-  const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300'];
+const COLORS = ["#9945FF", "#14F195", "#FFBB28"];
 
+const tooltipStyles = {
+  contentStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    border: 'none'
+  },
+  itemStyle: { color: '#FFFFFF' },
+  labelStyle: { color: '#FFFFFF' }
+};
+
+const DonationAnalyticsPopup = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
       <div className="bg-gray-800 p-6 rounded-lg w-11/12 max-w-4xl max-h-[90vh] overflow-y-auto relative scrollbar-hide">
@@ -74,16 +83,11 @@ const DonationAnalyticsPopup = ({ onClose }) => {
           <h3 className="text-lg font-semibold mb-2 text-gray-300">Donors Over Time</h3>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={donationLineChartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis dataKey="date" stroke="#9CA3AF" />
-              <YAxis stroke="#9CA3AF" />
-              <Tooltip
-                contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151' }}
-                labelStyle={{ color: 'white' }}
-                itemStyle={{ color: 'white' }}
-              />
-              <Legend />
-              <Line type="monotone" dataKey="donors" stroke="#8B5CF6" />
+              <CartesianGrid vertical={false} stroke="#374151" />
+              <XAxis dataKey="date" axisLine={{ stroke: '#6B7280' }} tick={{ fill: '#9CA3AF' }} />
+              <YAxis axisLine={{ stroke: '#6B7280' }} tick={{ fill: '#9CA3AF' }} />
+              <Tooltip {...tooltipStyles} />
+              <Line type="monotone" dataKey="donors" stroke="#14F195" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -91,18 +95,13 @@ const DonationAnalyticsPopup = ({ onClose }) => {
           <h3 className="text-lg font-semibold mb-2 text-gray-300">Donation Amounts</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={donationBarChartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis dataKey="amount" stroke="#9CA3AF" />
-              <YAxis stroke="#9CA3AF" />
-              <Tooltip
-                contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151' }}
-                labelStyle={{ color: 'white' }}
-                itemStyle={{ color: 'white' }}
-              />
-              <Legend />
-              <Bar dataKey="donors">
+              <CartesianGrid vertical={false} stroke="#374151" />
+              <XAxis dataKey="amount" axisLine={{ stroke: '#6B7280' }} tick={{ fill: '#9CA3AF' }} />
+              <YAxis axisLine={{ stroke: '#6B7280' }} tick={{ fill: '#9CA3AF' }} />
+              <Tooltip {...tooltipStyles} />
+              <Bar dataKey="donors" radius={[8, 8, 0, 0]}>
                 {donationBarChartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Bar>
             </BarChart>
@@ -137,16 +136,11 @@ const PetitionAnalyticsPopup = ({ onClose }) => {
           <h3 className="text-lg font-semibold mb-2 text-gray-300">Signatures Over Time</h3>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={petitionLineChartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis dataKey="date" stroke="#9CA3AF" />
-              <YAxis stroke="#9CA3AF" />
-              <Tooltip
-                contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151' }}
-                labelStyle={{ color: 'white' }}
-                itemStyle={{ color: 'white' }}
-              />
-              <Legend />
-              <Line type="monotone" dataKey="signatures" stroke="#8B5CF6" />
+              <CartesianGrid vertical={false} stroke="#374151" />
+              <XAxis dataKey="date" axisLine={{ stroke: '#6B7280' }} tick={{ fill: '#9CA3AF' }} />
+              <YAxis axisLine={{ stroke: '#6B7280' }} tick={{ fill: '#9CA3AF' }} />
+              <Tooltip {...tooltipStyles} />
+              <Line type="monotone" dataKey="signatures" stroke="#14F195" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -179,7 +173,7 @@ const BlinkPane = ({ url }) => {
           stylePreset="x-dark"
         />
       </div>
-      <div className="p-2 text-center" style={{ color: '#512DA8' }}>
+      <div className="p-2 text-center">
         <Button
           onClick={() => setShowAnalytics(true)}
           className="w-full"
@@ -203,7 +197,7 @@ const BlinkPane = ({ url }) => {
 
 export const MultiBlink = ({ actionUrls = [] }) => {
   return (
-    <div className="text-white min-h-screen">
+    <div className="text-white min-h-screen bg-gray-900">
       <h1 className="text-4xl font-bold mb-6 text-center pt-8">
         <span className="text-5xl font-bold bg-gradient-to-r from-purple-500 to-green-400 bg-clip-text text-transparent p-1 rounded">
           Blinks
