@@ -152,7 +152,7 @@ const Schedule = () => {
     return (
       <div
         style={{
-          backgroundImage: 'url(/title.svg)', // Background image URL
+          backgroundImage: 'url(/title.svg)', 
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           height: '100vh',
@@ -161,29 +161,27 @@ const Schedule = () => {
           alignItems: 'center',
           justifyContent: 'center',
           padding: '20px',
-          color: '#fff', // Set text color to white
+          color: '#fff', 
         }}
       >
-        {/* Image Tag */}
         <img
-          src="/onlyBlinks.svg" // Replace with your image URL
+          src="/onlyBlinks.svg" 
           alt="Your Image"
           style={{ width: '600px', height: 'auto', marginBottom: '20px', }}
         />
   
-        {/* Line of Words */}
+
         <p style={{ marginBottom: '20px', fontSize: '25px',fontWeight:'bold' }}>
         An AI-Enhanced Solana Blink Platform
         </p>
   
-        {/* Button */}
         <button
           style={{
             padding: '10px 20px',
-            backgroundColor: '#512DA8', // Button color (purple)
+            backgroundColor: '#512DA8', 
             border: 'none',
             borderRadius: '5px',
-            color: '#fff', // Button text color
+            color: '#fff', 
             cursor: 'pointer',
             fontWeight: 'bold',
             fontSize: '20px',
