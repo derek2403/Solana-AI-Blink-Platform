@@ -83,7 +83,7 @@ const ParticleBackground = () => {
       const particlesMesh = new THREE.Points(particles, material);
       scene.add(particlesMesh);
 
-      camera.position.z = 1;
+      camera.position.z = 2;
 
       // Animation
       const clock = new THREE.Clock();
