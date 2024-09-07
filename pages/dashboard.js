@@ -11,7 +11,7 @@ const SidebarLayout = () => {
 
     const menuItems = [
         { label: 'Create Blinks', id: 'create' },
-        { label: 'Collections', id: 'collections' },
+        { label: 'My Blinks', id: 'collections' },
     ];
 
     const actionUrls = [

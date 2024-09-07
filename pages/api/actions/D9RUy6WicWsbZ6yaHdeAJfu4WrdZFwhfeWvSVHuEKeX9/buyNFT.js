@@ -18,10 +18,10 @@ export default function handler(req, res) {
 
   if (req.method === 'GET') {
     const payload = {
-  "icon": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgz9hadyYQ1Y4Q_EKLx0nmtFXzcPWEAPpdBKGvHhsZAzh9d6FxSGOkuiBOu5zjYSoi3QX0a4HiHyvj0AHt5SCBK-1Er2Rh5Hx-vRU_o1QS75VFZwrn6LxggT2M3Cy0RrDFgBwUKK0ghfeCJ-AOydta-hoAOL15iVKlJ70GurI1AO7dBEuOP7tfSVJo2WlZ8/s320/blink.png",
-  "label": "End Dog Abuse",
-  "title": "Petition to End Dog Abuse",
-  "description": "Join us in our petition to put an end to dog abuse. Stand against this cruelty and help us push for stronger laws and better protection for our canine friends.",
+  "icon": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4FIWyzAWXv_rUVt-s4mslyFzsAz2OJp7wYEKYjIVIKTJSdRJKnuLGA1SheM2H32V_I1FL4oNHjhGt4U1OyWA6VV3VTSeGU48hPcjAT_1uTfTCk29cxYdnsZyrr1Ogmq_m_weQy0A-bxy3SuCfWIoZLP2TrkWocBL23iBfmJzVmAavpjpeBhHSossoXurR/s320/ezgif.com-animated-gif-maker.gif",
+  "label": "Stop Dog Abuse",
+  "title": "Stop Dog Abuse",
+  "description": "Join us in the fight against dog abuse. Raise awareness and support efforts to protect our furry friends from harm.",
   "links": {
     "actions": [
       {

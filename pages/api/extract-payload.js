@@ -77,7 +77,7 @@ lines.forEach(line => {
     }
 
     const payload = {
-      icon: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgz9hadyYQ1Y4Q_EKLx0nmtFXzcPWEAPpdBKGvHhsZAzh9d6FxSGOkuiBOu5zjYSoi3QX0a4HiHyvj0AHt5SCBK-1Er2Rh5Hx-vRU_o1QS75VFZwrn6LxggT2M3Cy0RrDFgBwUKK0ghfeCJ-AOydta-hoAOL15iVKlJ70GurI1AO7dBEuOP7tfSVJo2WlZ8/s320/blink.png", // Placeholder for an image URL
+      icon: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4FIWyzAWXv_rUVt-s4mslyFzsAz2OJp7wYEKYjIVIKTJSdRJKnuLGA1SheM2H32V_I1FL4oNHjhGt4U1OyWA6VV3VTSeGU48hPcjAT_1uTfTCk29cxYdnsZyrr1Ogmq_m_weQy0A-bxy3SuCfWIoZLP2TrkWocBL23iBfmJzVmAavpjpeBhHSossoXurR/s320/ezgif.com-animated-gif-maker.gif",
       label: extractedPayload.label,
       title: extractedPayload.title,
       description: extractedPayload.description,
