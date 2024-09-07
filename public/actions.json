@@ -167,6 +167,14 @@
     {
       "pathPattern": "/api/actions/D9RUy6WicWsbZ6yaHdeAJfu4WrdZFwhfeWvSVHuEKeX9/buyNFT",
       "apiPath": "/api/actions/D9RUy6WicWsbZ6yaHdeAJfu4WrdZFwhfeWvSVHuEKeX9/buyNFT"
+    },
+    {
+      "pathPattern": "/api/actions/EmNte14QTMuQWGrVfqx4Gb3hri632qELgrvLuVn3w12r/buyNFT",
+      "apiPath": "/api/actions/EmNte14QTMuQWGrVfqx4Gb3hri632qELgrvLuVn3w12r/buyNFT"
+    },
+    {
+      "pathPattern": "/api/actions/EmNte14QTMuQWGrVfqx4Gb3hri632qELgrvLuVn3w12r/buyNFT",
+      "apiPath": "/api/actions/EmNte14QTMuQWGrVfqx4Gb3hri632qELgrvLuVn3w12r/buyNFT"
     }
   ]
 }

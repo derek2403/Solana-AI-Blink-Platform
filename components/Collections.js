@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '@dialectlabs/blinks/index.css';
 import { useActionSolanaWalletAdapter } from "@dialectlabs/blinks/hooks/solana";
 import { Blink, useAction } from "@dialectlabs/blinks";
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 import { Button } from "@nextui-org/react";
 
 const extractHostname = (url) => {
@@ -20,8 +20,8 @@ const extractHostname = (url) => {
   }
 };
 
-// Mock data for charts
-const lineChartData = [
+// Donation data
+const donationLineChartData = [
   { date: '1/9/2024', donors: 4 },
   { date: '2/9/2024', donors: 7 },
   { date: '3/9/2024', donors: 5 },
@@ -29,21 +29,32 @@ const lineChartData = [
   { date: '5/9/2024', donors: 8 },
 ];
 
-const barChartData = [
+const donationBarChartData = [
   { amount: '0.1 SOL', donors: 15 },
   { amount: '0.25 SOL', donors: 20 },
   { amount: '0.5 SOL', donors: 10 },
   { amount: 'Custom', donors: 5 },
 ];
 
-const AnalyticsPopup = ({ onClose }) => {
+// Petition data
+const petitionLineChartData = [
+  { date: '7/9/2024', signatures: 1 },
+];
+
+const petitionBarChartData = [
+  { category: 'Environment', signatures: 25 },
+  { category: 'Education', signatures: 18 },
+  { category: 'Healthcare', signatures: 30 },
+  { category: 'Other', signatures: 12 },
+];
+
+const DonationAnalyticsPopup = ({ onClose }) => {
+  const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300'];
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
-      <div className="bg-gray-800 p-6 rounded-lg w-11/12 max-w-4xl max-h-[90vh] overflow-y-auto relative">
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 text-gray-400 hover:text-white"
-        >
+      <div className="bg-gray-800 p-6 rounded-lg w-11/12 max-w-4xl max-h-[90vh] overflow-y-auto relative scrollbar-hide">
+        <button onClick={onClose} className="absolute top-2 right-2 text-gray-400 hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -62,11 +73,15 @@ const AnalyticsPopup = ({ onClose }) => {
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2 text-gray-300">Donors Over Time</h3>
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={lineChartData}>
+            <LineChart data={donationLineChartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
               <XAxis dataKey="date" stroke="#9CA3AF" />
               <YAxis stroke="#9CA3AF" />
-              <Tooltip contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151' }} />
+              <Tooltip
+                contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151' }}
+                labelStyle={{ color: 'white' }}
+                itemStyle={{ color: 'white' }}
+              />
               <Legend />
               <Line type="monotone" dataKey="donors" stroke="#8B5CF6" />
             </LineChart>
@@ -75,15 +90,69 @@ const AnalyticsPopup = ({ onClose }) => {
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2 text-gray-300">Donation Amounts</h3>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={barChartData}>
+            <BarChart data={donationBarChartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
               <XAxis dataKey="amount" stroke="#9CA3AF" />
               <YAxis stroke="#9CA3AF" />
-              <Tooltip contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151' }} />
+              <Tooltip
+                contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151' }}
+                labelStyle={{ color: 'white' }}
+                itemStyle={{ color: 'white' }}
+              />
               <Legend />
-              <Bar dataKey="donors" fill="#10B981" />
+              <Bar dataKey="donors">
+                {donationBarChartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const PetitionAnalyticsPopup = ({ onClose }) => {
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+      <div className="bg-gray-800 p-6 rounded-lg w-11/12 max-w-4xl max-h-[90vh] overflow-y-auto relative scrollbar-hide">
+        <button onClick={onClose} className="absolute top-2 right-2 text-gray-400 hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <h2 className="text-2xl font-bold mb-4 text-white">Petition Analytics</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <h3 className="text-lg font-semibold mb-2 text-gray-300">Total Signatures</h3>
+            <p className="text-3xl font-bold text-white">1</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-2 text-gray-300">Active Petitions</h3>
+            <p className="text-3xl font-bold text-white">1</p>
+          </div>
+        </div>
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold mb-2 text-gray-300">Signatures Over Time</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={petitionLineChartData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="date" stroke="#9CA3AF" />
+              <YAxis stroke="#9CA3AF" />
+              <Tooltip
+                contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151' }}
+                labelStyle={{ color: 'white' }}
+                itemStyle={{ color: 'white' }}
+              />
+              <Legend />
+              <Line type="monotone" dataKey="signatures" stroke="#8B5CF6" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold mb-2 text-gray-300">Signer</h3>
+          <p className="text-white break-all">D9RUy6WicWsbZ6yaHdeAJfu4WrdZFwhfeWvSVHuEKeX9</p>
         </div>
       </div>
     </div>
@@ -99,6 +168,7 @@ const BlinkPane = ({ url }) => {
   if (!action) return <p className="text-gray-400"></p>;
 
   const hostname = extractHostname(url);
+  const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
 
   return (
     <div className="flex flex-col bg-gray-800 rounded-lg shadow-lg overflow-hidden h-full">
@@ -115,14 +185,18 @@ const BlinkPane = ({ url }) => {
           className="w-full"
           style={{
             backgroundColor: '#512DA8',
-            color: '#fff', // Assuming you want white text on the button
+            color: '#fff',
           }}
           auto
         >
           <strong>Details</strong>
         </Button>
       </div>
-      {showAnalytics && <AnalyticsPopup onClose={() => setShowAnalytics(false)} />}
+      {showAnalytics && (
+        isLocalhost
+          ? <PetitionAnalyticsPopup onClose={() => setShowAnalytics(false)} />
+          : <DonationAnalyticsPopup onClose={() => setShowAnalytics(false)} />
+      )}
     </div>
   );
 };
@@ -147,5 +221,16 @@ export const MultiBlink = ({ actionUrls = [] }) => {
     </div>
   );
 };
+
+// Add this CSS to your global styles or component-specific styles
+const styles = `
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+`;
 
 export default MultiBlink;
